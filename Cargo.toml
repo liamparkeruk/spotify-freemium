@@ -1,0 +1,13 @@
+[package]
+name = "spotify-freemium"
+version = "0.1.0-indev"
+authors = ["Dominic Rutkowski"]
+edition = "2018"
+description = "A MacOS application that automatically restarts Spotify when an ad plays in order to skip it"
+readme = "README.md"
+repository = "https://github.com/dominicrutk/spotify-freemium"
+license = "ISC"
+
+[dependencies]
+dirs = "3.0"
+notify = "4.0"
