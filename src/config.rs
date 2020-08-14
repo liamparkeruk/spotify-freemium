@@ -1,7 +1,6 @@
 extern crate dirs;
 
-use std::env;
-use std::path::PathBuf;
+use std::{path::PathBuf, env};
 
 pub fn ensure_macos() {
     assert_eq!("macos", env::consts::OS, "Spotify Freemium only runs on MacOS.");
