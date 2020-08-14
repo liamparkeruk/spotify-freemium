@@ -39,6 +39,13 @@ pub fn quit() -> Result<(), String> {
     }
 }
 
+pub fn is_open() -> Result<bool, String> {
+    match execute_osascript("IsOpen", None) {
+        Ok(stdout) => Ok(stdout.trim() == "true"),
+        Err(error) => Err(error),
+    }
+}
+
 pub fn play() -> Result<(), String> {
     if let Err(error) = execute_osascript("Play", None) {
         Err(error)
