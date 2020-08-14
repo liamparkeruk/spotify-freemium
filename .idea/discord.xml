@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DiscordProjectSettings">
-    <option name="show" value="HIDE" />
+    <option name="show" value="PROJECT_FILES" />
+    <option name="nameOverrideEnabled" value="true" />
+    <option name="nameOverrideText" value="Spotify Freemium" />
+    <option name="description" value="A MacOS application that automatically restarts Spotify when an ad plays in order to skip it" />
   </component>
 </project>
