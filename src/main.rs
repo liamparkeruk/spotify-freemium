@@ -4,6 +4,7 @@ use notify::{Watcher, raw_watcher, RecursiveMode};
 use std::{fs, sync::mpsc};
 
 mod config;
+mod freemium;
 mod spotify;
 
 fn main() {
@@ -29,11 +30,11 @@ fn main() {
     // Watch for file changes
     loop {
         match rx.recv() {
-            Ok(event) => {
-                println!("Event: {:?}", event);
+            Ok(_) => {
+                freemium::handle_event();
             },
             Err(error) => {
-                println!("Error: {:?}", error);
+                eprintln!("Error: {:?}", error);
             }
         }
     }
