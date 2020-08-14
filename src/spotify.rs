@@ -47,6 +47,7 @@ pub fn play() -> Result<(), String> {
     }
 }
 
+#[allow(dead_code)]
 pub fn pause() -> Result<(), String> {
     if let Err(error) = execute_osascript("Pause", None) {
         Err(error)
@@ -55,6 +56,7 @@ pub fn pause() -> Result<(), String> {
     }
 }
 
+#[allow(dead_code)]
 pub fn play_pause() -> Result<(), String> {
     if let Err(error) = execute_osascript("PlayPause", None) {
         Err(error)
@@ -93,6 +95,14 @@ pub fn get_volume() -> Result<u8, String> {
 pub fn is_playing_ad() -> Result<bool, String> {
     match execute_osascript("GetSongURL", None) {
         Ok(stdout) => Ok(stdout.trim().starts_with("spotify:ad")),
+        Err(error) => Err(error),
+    }
+}
+
+#[allow(dead_code)]
+pub fn get_song_name() -> Result<String, String> {
+    match execute_osascript("GetSongName", None) {
+        Ok(stdout) => Ok(stdout),
         Err(error) => Err(error),
     }
 }
