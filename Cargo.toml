@@ -9,5 +9,5 @@ repository = "https://github.com/dominicrutk/spotify-freemium"
 license = "ISC"
 
 [dependencies]
-dirs = "3.0"
-notify = "4.0"
+dirs = "3.0.1"
+notify = "4.0.15"
