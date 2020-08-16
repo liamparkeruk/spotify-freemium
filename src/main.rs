@@ -1,3 +1,9 @@
+//! Spotify Freemium is a MacOS application that automatically restarts Spotify when an ad plays.
+//! This behavior allows users who don't subscribe to Spotify Premium to enjoy an ad-free listening experience.
+//! It is perfect for cheap developers who want to listen to music while working.
+//!
+//! The source code and a more detailed README are available on [GitHub](https://github.com/dominicrutk/spotify-freemium).
+
 extern crate notify;
 
 use notify::{Watcher, raw_watcher, RecursiveMode};
@@ -7,6 +13,12 @@ mod config;
 mod freemium;
 mod spotify;
 
+/// Configures the application, listens for events, and responds to events by restarting Spotify
+///
+/// Configuring he application and responding to events are outsourced to the [`config`](./config/index.html) and
+/// [`freemium`](./freemium/index.html) modules respectively. The `main` function's primarily responsibility is to
+/// initialize this function and create a file watcher on the Spotify installation directory.
+/// This file watcher runs in another thread and returns events that might indicate an ad is playing.
 fn main() {
     // Configure the application
     config::ensure_macos();

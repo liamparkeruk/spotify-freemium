@@ -1,5 +1,16 @@
+//! Logic to handle ads by restarting Spotify
+
 use crate::spotify;
 
+/// Handles an event that might indicate an ad playing
+///
+/// After an event occurs, the following steps are taken:
+///
+/// 1. Ensure that Spotify is open and that an ad is playing
+/// 2. Store the current volume and mute Spotify
+/// 3. Quit and reopen Spotify
+/// 4. Restore the volume to its original value
+/// 5. Start audio playback
 pub fn handle_event() -> bool {
     let mut restarted = false;
     if let Ok(open) = spotify::is_open() {
