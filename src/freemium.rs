@@ -13,36 +13,42 @@ use crate::spotify;
 /// 5. Start audio playback
 pub fn handle_event() -> bool {
     let mut restarted = false;
-    if let Ok(open) = spotify::is_open() {
-        if open {
-            if let Ok(playing_ad) = spotify::is_playing_ad() {
-                if playing_ad {
-                    let volume = match spotify::get_volume() {
-                        Ok(volume) => volume,
-                        Err(error) => {
-                            eprintln!("{}", error);
-                            0
-                        },
-                    };
-                    if let Err(error) = spotify::mute() {
-                        eprintln!("{}", error);
-                    }
-                    if let Err(error) = spotify::quit() {
-                        eprintln!("{}", error);
-                    }
-                    if let Err(error) = spotify::open() {
-                        eprintln!("{}", error);
-                    }
-                    if let Err(error) = spotify::set_volume(volume) {
-                        eprintln!("{}", error);
-                    }
-                    if let Err(error) = spotify::play() {
-                        eprintln!("{}", error);
-                    }
-                    restarted = true;
+    match spotify::is_open() {
+        Ok(open) => {
+            if open {
+                match spotify::is_playing_ad() {
+                    Ok(playing_ad) => {
+                        if playing_ad {
+                            let volume = match spotify::get_volume() {
+                                Ok(volume) => volume,
+                                Err(error) => {
+                                    eprintln!("{}", error);
+                                    0
+                                },
+                            };
+                            if let Err(error) = spotify::mute() {
+                                eprintln!("{}", error);
+                            }
+                            if let Err(error) = spotify::quit() {
+                                eprintln!("{}", error);
+                            }
+                            if let Err(error) = spotify::open() {
+                                eprintln!("{}", error);
+                            }
+                            if let Err(error) = spotify::set_volume(volume) {
+                                eprintln!("{}", error);
+                            }
+                            if let Err(error) = spotify::play() {
+                                eprintln!("{}", error);
+                            }
+                            restarted = true;
+                        }
+                    },
+                    Err(error) => eprintln!("{}", error),
                 }
             }
-        }
+        },
+        Err(error) => eprintln!("{}", error),
     }
     restarted
 }
