@@ -2,7 +2,8 @@
 
 extern crate dirs;
 
-use std::{path::PathBuf, env};
+use std::env;
+use std::path::PathBuf;
 
 /// Checks if the application is running on MacOS
 ///
@@ -11,6 +12,21 @@ use std::{path::PathBuf, env};
 /// - If the operating system is not MacOS
 pub fn ensure_macos() {
     assert_eq!("macos", env::consts::OS, "Spotify Freemium only runs on MacOS.");
+}
+
+/// Resets the working directory
+///
+/// The working directory changes from `/` to `[PACKAGE BUNDLE ROOT]/Contents`
+///
+/// # Panics
+///
+/// - If the current working directory cannot be determined
+/// - If the working directory cannot be reset
+pub fn set_working_dir() {
+    let mut current_file_dir = env::current_exe().expect("Something went wrong determining the current executable directory...");
+    current_file_dir.pop();
+    current_file_dir.pop();
+    env::set_current_dir(current_file_dir).expect("Something went wrong resetting the current working directory...");
 }
 
 /// Locates the Spotify installation directory
