@@ -7,7 +7,8 @@
 extern crate notify;
 
 use notify::{Watcher, raw_watcher, RecursiveMode};
-use std::{fs, sync::mpsc};
+use std::fs;
+use std::sync::mpsc;
 
 mod config;
 mod freemium;
@@ -22,6 +23,7 @@ mod spotify;
 fn main() {
     // Configure the application
     config::ensure_macos();
+    config::set_working_dir();
     let spotify_dir = config::get_spotify_dir();
 
     // Set up file watcher

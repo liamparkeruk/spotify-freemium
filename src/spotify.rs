@@ -11,7 +11,7 @@ use std::process::Command;
 /// - If the function fails, the result will be an error message.
 fn execute_osascript(name: &str, args: Option<&[&str]>) -> Result<String, String> {
     match Command::new("osascript")
-        .arg(format!("src/osascripts/{}.scpt", name))
+        .arg(format!("Resources/osascripts/{}.scpt", name))
         .args(if let Some(args) = args { args } else { &[] as &[&str] })
         .output() {
         Ok(output) => {
