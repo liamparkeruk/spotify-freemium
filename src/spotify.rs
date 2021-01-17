@@ -117,48 +117,6 @@ pub fn play_pause() -> Result<(), String> {
     }
 }
 
-/// Sets the volume in Spotify to the given value
-///
-/// Valid volumes must be integers from 0 to 100, inclusive.
-///
-/// - If setting the volume is successful, the result will be empty.
-/// - If setting the volume fails (including if the given volume is an invalid value), the result
-/// will be an error message. In this application, the error might be logged but will most likely be ignored.
-pub fn set_volume(volume: u8) -> Result<(), String> {
-    if volume > 100 {
-        return Err(String::from("Volume must be a whole number from 0 to 100"));
-    }
-    if let Err(error) = execute_osascript("SetVolume", Some(&vec![volume.to_string().as_str()])) {
-        Err(error)
-    } else {
-        Ok(())
-    }
-}
-
-/// Mutes Spotify
-///
-/// Convenience function for [`set_volume(0)`](./fn.set_volume.html)
-pub fn mute() -> Result<(), String> {
-    set_volume(0)
-}
-
-/// Gets the current volume
-///
-/// - If retrieving the volume is successful, the result will be an integer from 0 to 100, inclusive.
-/// - If retrieving the volume is unsuccessful, the result will be an error message. In this application,
-/// the error might be logged but will most likely be ignored.
-pub fn get_volume() -> Result<u8, String> {
-    match execute_osascript("GetVolume", None) {
-        Ok(stdout) => {
-            match stdout.trim().parse::<u8>() {
-                Ok(volume) => Ok(volume),
-                Err(error) => Err(format!("Something went wrong converting stdout \"{}\" to an unsigned, 8-bit integer: {:?}", stdout, error)),
-            }
-        },
-        Err(error) => Err(error),
-    }
-}
-
 /// Checks if Spotify is currently playing an ad
 ///
 /// - If the check is successful, the result will be a boolean indicating whether an ad is playing (true)
